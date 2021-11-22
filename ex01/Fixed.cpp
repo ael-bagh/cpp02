@@ -31,13 +31,13 @@ Fixed::~Fixed()
 	return ;
 }
 
-Fixed &				Fixed::operator=(Fixed const & rhs)
+Fixed &	Fixed::operator=(Fixed const & rhs)
 {
 	setRawBits(rhs.getRawBits());
 	return (*this);
 }
 
-std::ostream &			operator<<(std::ostream & o, Fixed const & i)
+std::ostream &	operator<<(std::ostream & o, Fixed const & i)
 {
 	o << i.toFloat();
 	return o;
