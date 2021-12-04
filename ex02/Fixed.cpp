@@ -37,29 +37,76 @@ Fixed &	Fixed::operator=(Fixed const & rhs)
 	return (*this);
 }
 
-Fixed &	Fixed::operator* (Fixed const & rhs)
+Fixed	Fixed::operator* (Fixed const & rhs)
 {
-	this->_fixedPointValue = (this->_fixedPointValue * rhs.getRawBits()) >> this->_fractionalBits;
-	return (*this);
+	Fixed tmp;
+	tmp.setRawBits(this->_fixedPointValue * rhs.getRawBits() / (1 << _fractionalBits));
+	return (tmp);
 }
 
-Fixed &	Fixed::operator- (Fixed const & rhs)
+Fixed	Fixed::operator- (Fixed const & rhs)
 {
-	this->_fixedPointValue = (this->_fixedPointValue - rhs.getRawBits()) >> this->_fractionalBits;
-	return (*this);
+	Fixed tmp;
+	tmp.setRawBits(this->_fixedPointValue - rhs.getRawBits() / (1 << _fractionalBits));
+	return (tmp);
 }
 
-Fixed & Fixed::operator+ (Fixed const & rhs)
+Fixed	 Fixed::operator+ (Fixed const & rhs)
 {
-	this->_fixedPointValue = (this->_fixedPointValue + rhs.getRawBits()) >> this->_fractionalBits;
-	return (*this);
+	Fixed tmp;
+	tmp.setRawBits(this->_fixedPointValue + rhs.getRawBits() / (1 << _fractionalBits));
+	return (tmp);
 }
 
-Fixed & Fixed::operator/ (Fixed const & rhs)
+Fixed	Fixed::operator/ (Fixed const & rhs)
 {
-	this->_fixedPointValue = (this->_fixedPointValue / rhs.getRawBits()) >> this->_fractionalBits;
-	return (*this);
+	Fixed	tmp;
+	tmp.setRawBits(this->_fixedPointValue * (1 << _fractionalBits)/ rhs.getRawBits());
+	return (tmp);
 }
+
+bool	Fixed::operator> (Fixed const & rhs)
+{
+	if (this->_fixedPointValue > rhs.getRawBits())
+		return true;
+	return false;
+}
+
+bool	Fixed::operator< (Fixed const & rhs)
+{
+	if (this->_fixedPointValue < rhs.getRawBits())
+		return true;
+	return false;
+}
+
+bool	Fixed::operator>= (Fixed const & rhs)
+{
+	if (this->_fixedPointValue >= rhs.getRawBits())
+		return true;
+	return false;
+}
+
+bool	Fixed::operator<= (Fixed const & rhs)
+{
+	if (this->_fixedPointValue <= rhs.getRawBits())
+		return true;
+	return false;
+}
+
+bool	Fixed::operator== (Fixed const & rhs)
+{
+	if (this->_fixedPointValue == rhs.getRawBits())
+		return true;
+	return false;
+}
+
+bool	Fixed::operator!= (Fixed const & rhs)
+{
+	if (this->_fixedPointValue != rhs.getRawBits())
+		return true;
+	return false;
+}
+
 Fixed & Fixed::operator++()
 {
 	this->_fixedPointValue += 1;
